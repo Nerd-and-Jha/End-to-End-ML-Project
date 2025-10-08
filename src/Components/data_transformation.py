@@ -16,7 +16,7 @@ from src.utils import save_object
 
 @dataclass
 class DataTransformationConfig:
-    preprocessor_obj_file_path=os.path.join('artifacts',"preprocessor.pkl")
+    preprocessor_obj_file_path=os.path.join('artifacts',"proprocessor.pkl")
 
 class DataTransformation:
     def __init__(self):
@@ -108,9 +108,6 @@ class DataTransformation:
 
             logging.info(f"Saved preprocessing object.")
 
-            # ADD
-            print(f"DEBUG PATH: {self.data_transformation_config.preprocessor_obj_file_path}") 
-
             save_object(
 
                 file_path=self.data_transformation_config.preprocessor_obj_file_path,
@@ -125,31 +122,3 @@ class DataTransformation:
             )
         except Exception as e:
             raise CustomException(e,sys)
-        
-# --- (Your Class definitions end here) ---
-
-if __name__ == "__main__":
-    # You will need to define paths to your train/test CSVs here.
-    # Assuming they are in the 'artifacts' folder as per your screenshot.
-    train_data_path = "artifacts/train.csv"
-    test_data_path = "artifacts/test.csv"
-    
-    # Check if the paths are correct and accessible
-    print(f"DEBUG: Starting transformation with train_path: {train_data_path}")
-
-    # Instantiate the data ingestion object (optional, if using the entire pipeline)
-    # If your component depends on a previous step:
-    # from data_ingestion import DataIngestion 
-    # data_ingestion_obj = DataIngestion()
-    # train_data_path, test_data_path = data_ingestion_obj.initiate_data_ingestion()
-
-    # Create the data transformation object
-    data_transformation = DataTransformation()
-
-    # Call the method that does all the work
-    train_arr, test_arr, preprocessor_path = data_transformation.initiate_data_transformation(
-        train_data_path,
-        test_data_path
-    )
-    
-    print("DEBUG: Data Transformation completed successfully.")
